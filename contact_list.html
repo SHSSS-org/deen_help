@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Directory - SHSSS Headlines</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: #ff385c;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            color: #ff385c;
+            font-size: 28px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ff385c;
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #ff385c 0%, #e61e4d 100%);
+            color: white;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .page-header h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Search and Filter Section */
+        .search-filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .search-bar {
+            display: flex;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 50px 0 0 50px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-bar button {
+            padding: 15px 25px;
+            background: #ff385c;
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #e61e4d;
+        }
+        
+        .category-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-filter select {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+            background: white;
+            min-width: 200px;
+        }
+        
+        /* Professionals Grid */
+        .professionals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .professional-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .professional-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .professional-header {
+            background: linear-gradient(135deg, #ff385c 0%, #e61e4d 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .professional-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #fff;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff385c;
+            font-size: 40px;
+            border: 4px solid white;
+        }
+        
+        .professional-field {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .professional-details {
+            padding: 20px;
+        }
+        
+        .professional-details h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .professional-course {
+            text-align: center;
+            color: #ff385c;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .professional-info {
+            margin-bottom: 15px;
+        }
+        
+        .professional-info p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .professional-info i {
+            margin-right: 10px;
+            color: #ff385c;
+            width: 20px;
+        }
+        
+        .professional-about {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        .professional-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .professional-social a {
+            color: #777;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .professional-social a:hover {
+            color: #ff385c;
+        }
+        
+        /* Add Professional Button */
+        .add-professional {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .add-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #ff385c;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .add-btn:hover {
+            background: #e61e4d;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #777;
+            cursor: pointer;
+        }
+        
+        .close-modal:hover {
+            color: #ff385c;
+        }
+        
+        .modal h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff385c;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #ff385c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: #e61e4d;
+        }
+        
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+            display: none;
+        }
+        
+        .no-results i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .no-results p {
+            font-size: 18px;
+            color: #777;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #ff385c;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: #ff385c;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-bar {
+                min-width: 100%;
+            }
+            
+            .category-filter {
+                width: 100%;
+            }
+            
+            .category-filter select {
+                width: 100%;
+            }
+            
+            .professionals-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-user-tie logo-icon"></i>
+                    <h1>SHSSS Headlines</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="books_pdf.html"><i class="fas fa-book"></i> Books PDF</a></li>
+                        <li><a href="#" class="active"><i class="fas fa-user-tie"></i> Professionals</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Page Header -->
+        <section class="page-header">
+            <h2>Professional Directory</h2>
+            <p>Connect with experienced professionals across various fields of expertise</p>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search professionals by name, field, or expertise...">
+                <button id="search-button"><i class="fas fa-search"></i> Search</button>
+            </div>
+            
+            <div class="category-filter">
+                <label for="category-select">Filter by Field:</label>
+                <select id="category-select">
+                    <option value="all">All Fields</option>
+                    <option value="technology">Technology</option>
+                    <option value="medicine">Medicine</option>
+                    <option value="education">Education</option>
+                    <option value="business">Business</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="law">Law</option>
+                    <option value="arts">Arts</option>
+                    <option value="science">Science</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Professionals Grid -->
+        <div class="professionals-grid" id="professionals-container">
+            <!-- Professionals will be dynamically inserted here -->
+        </div>
+        
+        <!-- No Results Message -->
+        <div class="no-results" id="no-results">
+            <i class="fas fa-search"></i>
+            <p>No professionals found matching your search criteria</p>
+        </div>
+        
+        <!-- Add Professional Button -->
+        <div class="add-professional">
+            <button class="add-btn" id="add-professional-btn"><i class="fas fa-plus"></i> Add New Professional</button>
+        </div>
+    </div>
+
+    <!-- Add Professional Modal -->
+    <div class="modal" id="add-professional-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h3>Add New Professional</h3>
+            <form id="professional-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Course/Degree *</label>
+                        <input type="text" id="course" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone
+                        <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="instagram">Instagram Handle</label>
+                        <input type="text" id="instagram">
+                    </div>
+                    <div class="form-group">
+                        <label for="facebook">Facebook Profile</label>
+                        <input type="text" id="facebook">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="times-free">Times Available</label>
+                        <input type="text" id="times-free" placeholder="e.g., Weekends 2-5 PM">
+                    </div>
+                    <div class="form-group">
+                        <label for="residence">Residence/City</label>
+                        <input type="text" id="residence">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label for="admin">Enter Admin Code</label>
+                        <input type="password" id="admin">
+                        If the code is wrong the website will display the added participant just for you and it will be cleared when page is refreshed
+                    </div>
+                <div class="form-group">
+                    <label for="field">Field of Expertise *</label>
+                    <select id="field" required>
+                        <option value="">Select a field</option>
+                        <option value="technology">Technology</option>
+                        <option value="medicine">Medicine</option>
+                        <option value="education">Education</option>
+                        <option value="business">Business</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="law">Law</option>
+                        <option value="arts">Arts</option>
+                        <option value="science">Science</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="about">About/Description *</label>
+                    <textarea id="about" required></textarea>
+                </div>
+                
+                
+                <button type="submit" class="submit-btn">Add Professional</button>                
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SHSSS Headlines</h3>
+                    <p>Connecting students with professionals for guidance and mentorship</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#">Home</a>
+                    <a href="books_pdf.html">Books PDF</a>
+                    <a href="#">Professionals</a>
+                    <a href="#">Mentorship Program</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> contact@shsss-headlines.edu</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 SHSSS Headlines. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample professional data
+        const professionals = [
+            {
+                name: "Dr. Sarah Johnson",
+                course: "PhD in Computer Science",
+                phone: "+1 (555) 123-4567",
+                email: "s.johnson@example.com",
+                instagram: "@drsarahj",
+                facebook: "sarahjohnsonprof",
+                timesFree: "Weekends 10AM-2PM",
+                residence: "New York, USA",
+                field: "technology",
+                about: "Specialized in AI and machine learning with over 10 years of industry experience. Passionate about mentoring young developers."
+            },
+            {
+                name: "Prof. Michael Chen",
+                course: "MD in Cardiology",
+                phone: "+1 (555) 987-6543",
+                email: "m.chen@example.com",
+                instagram: "@dr_michaelchen",
+                facebook: "michaelchenmd",
+                timesFree: "Wednesdays 6-8PM",
+                residence: "Boston, USA",
+                field: "medicine",
+                about: "Cardiologist with extensive research experience. Currently leading clinical trials on innovative heart treatments."
+            },
+            {
+                name: "Emily Rodriguez",
+                course: "Masters in Education",
+                phone: "+1 (555) 456-7890",
+                email: "e.rodriguez@example.com",
+                instagram: "@emilyteaches",
+                facebook: "emilyrodriguezedu",
+                timesFree: "Fridays 4-6PM",
+                residence: "Chicago, USA",
+                field: "education",
+                about: "Education specialist focused on curriculum development and innovative teaching methods for STEM subjects."
+            }
+        ];
+
+        // DOM elements
+        const professionalsContainer = document.getElementById('professionals-container');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const categorySelect = document.getElementById('category-select');
+        const noResults = document.getElementById('no-results');
+        const addProfessionalBtn = document.getElementById('add-professional-btn');
+        const addProfessionalModal = document.getElementById('add-professional-modal');
+        const closeModal = document.getElementById('close-modal');
+        const professionalForm = document.getElementById('professional-form');
+
+        // Display professionals function
+        function displayProfessionals(professionalsToDisplay) {
+            professionalsContainer.innerHTML = '';
+            
+            if (professionalsToDisplay.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            professionalsToDisplay.forEach(professional => {
+                const professionalCard = document.createElement('div');
+                professionalCard.className = 'professional-card';
+                professionalCard.innerHTML = `
+                    <div class="professional-header">
+                        <div class="professional-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>${professional.name}</h3>
+                        <span class="professional-field">${professional.field}</span>
+                    </div>
+                    <div class="professional-details">
+                        <p class="professional-course">${professional.course}</p>
+                        <div class="professional-info">
+                            <p><i class="fas fa-phone"></i> ${professional.phone}</p>
+                            <p><i class="fas fa-envelope"></i> ${professional.email}</p>
+                            <p><i class="fas fa-clock"></i> Available: ${professional.timesFree}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${professional.residence}</p>
+                        </div>
+                        <div class="professional-about">
+                            <p>${professional.about}</p>
+                        </div>
+                        <div class="professional-social">
+                            ${professional.instagram ? `<a href="https://instagram.com/${professional.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+                            ${professional.facebook ? `<a href="https://facebook.com/${professional.facebook}" target="_blank"><i class="fab fa-facebook"></i></a>` : ''}
+                            <a href="mailto:${professional.email}"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                `;
+                professionalsContainer.appendChild(professionalCard);
+            });
+        }
+
+        // Filter professionals based on search and category
+        function filterProfessionals() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const field = categorySelect.value;
+            
+            const filteredProfessionals = professionals.filter(professional => {
+                const matchesSearch = professional.name.toLowerCase().includes(searchTerm) || 
+                                    professional.course.toLowerCase().includes(searchTerm) ||
+                                    professional.field.toLowerCase().includes(searchTerm) ||
+                                    professional.about.toLowerCase().includes(searchTerm);
+                const matchesField = field === 'all' || professional.field === field;
+                
+                return matchesSearch && matchesField;
+            });
+            
+            displayProfessionals(filteredProfessionals);
+        }
+
+        // Modal functionality
+        addProfessionalBtn.addEventListener('click', () => {
+            addProfessionalModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', () => {
+            addProfessionalModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === addProfessionalModal) {
+                addProfessionalModal.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        professionalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newProfessional = {
+                name: document.getElementById('name').value,
+                course: document.getElementById('course').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                instagram: document.getElementById('instagram').value,
+                facebook: document.getElementById('facebook').value,
+                timesFree: document.getElementById('times-free').value,
+                residence: document.getElementById('residence').value,
+                field: document.getElementById('field').value,
+                about: document.getElementById('about').value
+            };
+            
+            professionals.push(newProfessional);
+            displayProfessionals(professionals);
+            professionalForm.reset();
+            addProfessionalModal.style.display = 'none';
+            
+            alert('Professional added successfully!');
+        });
+
+        // Event listeners
+        searchInput.addEventListener('input', filterProfessionals);
+        searchButton.addEventListener('click', filterProfessionals);
+        categorySelect.addEventListener('change', filterProfessionals);
+
+        // Initialize the page with all professionals
+        displayProfessionals(professionals);
+    </script>
+</body>
+</html>
