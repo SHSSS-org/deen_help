@@ -530,7 +530,7 @@
         <section class="page-header">
             <h2>Deen Help[alpha 1.1]</h2>
             <p>Connect with experienced professionals who have been there where you stand</p>
-            <p>Connect with us so we can help people in need.Please email us to be a counsellor on deeni matters</p>
+            <p>Connect with us so we can help people in need.Please email us to be a counsellor on deeni topics</p>
         </section>
 
         <!-- Search and Filter Section -->
@@ -540,7 +540,20 @@
                 <button id="search-button"><i class="fas fa-search"></i> Search</button>
             </div>
             
-            
+            <div class="category-filter">
+                <label for="category-select">Filter by Field:</label>
+                <select id="category-select">
+                    <option value="all">All Fields</option>
+                    <option value="technology">Technology</option>
+                    <option value="medicine">Medicine</option>
+                    <option value="education">Education</option>
+                    <option value="business">Business</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="law">Law</option>
+                    <option value="arts">Arts</option>
+                    <option value="science">Science</option>
+                </select>
+            </div>
         </div>
 
         <!-- Professionals Grid -->
@@ -614,6 +627,20 @@
                         <input type="password" id="admin">
                         If the code is wrong the website will display the added participant just for you and it will be cleared when page is refreshed
                     </div>
+                <div class="form-group">
+                    <label for="field">Field of Expertise *</label>
+                    <select id="field" required>
+                        <option value="">Select a field</option>
+                        <option value="technology">Technology</option>
+                        <option value="medicine">Medicine</option>
+                        <option value="education">Education</option>
+                        <option value="business">Business</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="law">Law</option>
+                        <option value="arts">Arts</option>
+                        <option value="science">Science</option>
+                    </select>
+                </div>
                 
                 <div class="form-group">
                     <label for="about">About/Description *</label>
